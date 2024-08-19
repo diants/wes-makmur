@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,3 +21,9 @@ Route::get('/', function () {
 Route::get('/users', [UserController::class, 'index'])->middleware('role:admin');
 
 Route::resource('posts', PostController::class)->middleware('auth');
+
+Auth::routes();
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
