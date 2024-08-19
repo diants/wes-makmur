@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Auth;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/template', function () {
+    return view('template');
+});
 Route::get('/', function () {
     return view('welcome');
 });
@@ -27,3 +29,4 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::resource('posts', PostController::class);

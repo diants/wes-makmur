@@ -19,8 +19,16 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        Post::create($request->all());
-        return redirect()->route('posts.index');
+        // Validasi data terlebih dahulu
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required',
+        ]);
+
+        // Mass assignment hanya untuk field yang diperbolehkan
+        Post::create($validatedData);
+         // Redirect ke halaman daftar postingan setelah berhasil menyimpan
+        return redirect()->route('posts.index')->with('success', 'Post created successfully.');
     }
 
     public function edit(Post $post)
